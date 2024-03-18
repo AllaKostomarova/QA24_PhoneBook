@@ -1,5 +1,6 @@
 package manager;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,7 @@ public class HelperUser extends HelperBase{
         click(By.cssSelector("a[href='/login']"));
     }
 
-    public void fillLoginRegistrationForm(String email, String passvord){
+    public void fillLoginRegistrationForm(String email, String password){
 //        WebElement emailInput = wd.findElement(By.name("email"));
 //        emailInput.click();
 //        emailInput.clear();
@@ -26,7 +27,12 @@ public class HelperUser extends HelperBase{
 //        passwordInput.click();
 //        passwordInput.clear();
 //        passwordInput.sendKeys(passvord);
-        type(By.xpath("//input[last()]"), passvord);
+        type(By.xpath("//input[last()]"), password);
+    }
+
+    public void fillLoginRegistrationForm(User user) {
+        type(By.name("email"), user.getEmail());
+        type(By.xpath("//input[last()]"), user.getPassword());
     }
 
     public void submitLogin(){

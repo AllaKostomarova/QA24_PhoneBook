@@ -1,5 +1,6 @@
 package tests;
 
+import models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,6 +36,30 @@ public class LoginTests extends TestBase{
         app.getHelperUser().fillLoginRegistrationForm("aa@aa.ru", "Test123$");
         app.getHelperUser().submitLogin();
         Assert.assertTrue(app.getHelperUser().isLogged());
+
+    }
+    @Test
+    public void loginWrongEmail(){
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm("aaaa.ru", "Test123$");
+        app.getHelperUser().submitLogin();
+        Assert.assertTrue(app.getHelperUser().isAlertPresent("Wrong email or password"));
+
+    }
+    @Test
+    public void loginWrongPassword(){
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm("aa@aa.ru", "Test123");
+        app.getHelperUser().submitLogin();
+        Assert.assertTrue(app.getHelperUser().isAlertPresent("Wrong email or password"));
+    }
+    @Test
+    public void loginUnregistredUser(){
+        User user = new User().withEmail("aa@aa.ru").withPassword("Test123");
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm(user);
+        app.getHelperUser().submitLogin();
+        Assert.assertTrue(app.getHelperUser().isAlertPresent("Wrong email or password"));
 
     }
 }
