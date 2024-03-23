@@ -10,13 +10,18 @@ public class HelperUser extends HelperBase{
         super(wd);
     }
 
+    //============LOGIN====================
     public void openLoginRegistrationForm(){
+        //The method opens the page /login (https://telranedu.web.app/login) by clicking the "Login" title in the header
+
 //        WebElement loginTab = wd.findElement(By.cssSelector("a[href='/login']")); // xpath: //a[text()='LOGIN']
 //        loginTab.click();
         click(By.cssSelector("a[href='/login']"));
     }
 
     public void fillLoginRegistrationForm(String email, String password){
+        // The method fills the email field and the password field in the login page
+
 //        WebElement emailInput = wd.findElement(By.name("email"));
 //        emailInput.click();
 //        emailInput.clear();
@@ -31,20 +36,35 @@ public class HelperUser extends HelperBase{
     }
 
     public void fillLoginRegistrationForm(User user) {
+        // The method fills the email field and the password field
+
         type(By.name("email"), user.getEmail());
         type(By.xpath("//input[last()]"), user.getPassword());
     }
 
     public void submitLogin(){
+        //The method clicks on the "Login" button on the login page
+
         click(By.xpath("//button[text()='Login']"));
     }
 
     public boolean isLogged() {
+        //The method returns:
+        // True if the user's page is opened (The "Sign Out" title is present in the header)
+        // False if the login page is opened (The "Sign Out" title is not present in the header)
+
         return isElementPresent(By.xpath("//button[text()='Sign Out']"));
     }
 
-
     public void logOut() {
+        // The method dos logout
+
         click(By.xpath("//button[text()='Sign Out']"));
+    }
+
+    public void submitRegistration(){
+        // The method clicks on the "Registration" button on the login page
+
+        click(By.name("registration"));
     }
 }
