@@ -4,8 +4,12 @@ import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HelperUser extends HelperBase{
+
+
     public HelperUser(WebDriver wd) {
         super(wd);
     }
@@ -66,5 +70,12 @@ public class HelperUser extends HelperBase{
         // The method clicks on the "Registration" button on the login page
 
         click(By.name("registration"));
+    }
+
+    public boolean isNoContactsHereDisplayed(){
+        WebDriverWait wait = new WebDriverWait(wd, 5);
+        return wait.until(ExpectedConditions
+                .textToBePresentInElement(wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")), "No Contacts here!"));
+
     }
 }
