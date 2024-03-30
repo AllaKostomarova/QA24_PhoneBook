@@ -51,9 +51,19 @@ public class HelperBase {
         return false;
     }
 
-    public void pause(int time){
+    public boolean isAlertPresent() {
+        Alert alert = new WebDriverWait(wd, 10)
+                .until(ExpectedConditions.alertIsPresent());
+        if(alert != null){
+            alert.accept();
+            return true;
+        }
+        return false;
+    }
+
+    public void pause(int sec){
         try {
-            Thread.sleep(time);
+            Thread.sleep(1000L*sec);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

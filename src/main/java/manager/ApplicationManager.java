@@ -26,6 +26,10 @@ public class ApplicationManager {
         helperContact = new HelperContact(wd);
     }
 
+    public void waitElement(){
+        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
     public void stop(){
         wd.quit();
 

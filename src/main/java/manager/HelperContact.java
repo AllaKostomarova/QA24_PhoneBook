@@ -13,6 +13,7 @@ public class HelperContact extends HelperBase{
     }
 
     By titleAdd = By.xpath("//a[@href='/add']");
+    By titleContact = By.xpath("//a[@href='/contacts']");
     By nameField = By.xpath("//input[@placeholder='Name']");
     By lastNameField = By.xpath("//input[@placeholder='Last Name']");
     By phoneField = By.xpath("//input[@placeholder='Phone']");
@@ -26,6 +27,10 @@ public class HelperContact extends HelperBase{
 
     public void openContactForm() {
         click(titleAdd);
+    }
+
+    public void openContactPage(){
+        click(titleContact);
     }
 
     public void saveContactForm() {
@@ -57,5 +62,9 @@ public class HelperContact extends HelperBase{
                 return true;
         }
         return false;
+    }
+
+    public boolean isContactFormPresent(){
+        return isElementPresent(buttonSave);
     }
 }
