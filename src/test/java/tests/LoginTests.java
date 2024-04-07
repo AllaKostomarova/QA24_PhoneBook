@@ -12,11 +12,14 @@ public class LoginTests extends TestBase{
         // if SignOut ---> logout
         if(app.getHelperUser().isLogged()){
             app.getHelperUser().logOut();
+            logger.info("Before method finish logout");
         }
     }
 
     @Test
     public void loginSuccess(){
+        logger.info("Start test with name 'loginSuccess'");
+        logger.info("Test data-->email: aa@aa.ru, password: Test123$");
         app.getHelperUser().openLoginRegistrationForm();
         app.getHelperUser().fillLoginRegistrationForm("aa@aa.ru", "Test123$");
         app.getHelperUser().submitLogin();
@@ -27,16 +30,18 @@ public class LoginTests extends TestBase{
 //        Assert.assertFalse();
 
         Assert.assertTrue(app.getHelperUser().isLogged());
+        logger.info("Assert check that button 'Sign Out' present");
 
     }
 
     @Test
     public void loginSuccessModel(){
+        logger.info("Start");
         app.getHelperUser().openLoginRegistrationForm();
         app.getHelperUser().fillLoginRegistrationForm("aa@aa.ru", "Test123$");
         app.getHelperUser().submitLogin();
         Assert.assertTrue(app.getHelperUser().isLogged());
-
+        logger.info("End");
     }
     @Test
     public void loginWrongEmail(){

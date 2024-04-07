@@ -4,10 +4,14 @@ import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Random;
 
 public class HelperContact extends HelperBase{
+    Logger logger = LoggerFactory.getLogger(HelperContact.class);
     public HelperContact(WebDriver wd) {
         super(wd);
     }
@@ -23,6 +27,8 @@ public class HelperContact extends HelperBase{
     By buttonSave = By.xpath("//button/b");
     By nameItemCard = By.cssSelector(".contact-item_card__2SOIM>h2");
     By phoneItemCard = By.cssSelector(".contact-item_card__2SOIM>h3");
+
+    By titleAddActive = By.cssSelector("a.active[href='/add']");
 
 
     public void openContactForm() {
@@ -66,5 +72,62 @@ public class HelperContact extends HelperBase{
 
     public boolean isContactFormPresent(){
         return isElementPresent(buttonSave);
+    }
+
+    public boolean isAddPageStillDisplayed() {
+        return isElementPresent(titleAddActive);
+    }
+
+
+    public int removeOneContact() {
+        int before = countOfContacts();
+        logger.info("Number of Contacts before remove is --->"+before);
+        removeContact();
+        int after = countOfContacts();
+        logger.info("Number of Contacts after remove is --->"+after);
+        return before-after;
+    }
+
+    private int countOfContacts() {
+        return wd.findElements(By.cssSelector("div[class='contact-item_card__2SOIM']")).size();
+    }
+
+    private void removeContact(){
+        click(By.cssSelector(".contact-item_card__2SOIM"));
+        click(By.xpath("//button[text()='Remove']"));
+        pause(5);
+    }
+
+    public void removeAllContacts(){
+        while (countOfContacts() !=0)
+            removeContact();
+    }
+
+    public String getMessage() {
+        return wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")).getText();
+    }
+
+    public void provideContacts() {
+        if(countOfContacts()<3){
+            for (int i = 0; i < 3; i++) {
+                addOneContact();
+            }
+        }
+    }
+
+    private void addOneContact() {
+        int i = new Random().nextInt(1000)+1000;
+        Contact contact = Contact.builder()
+                .name("Harry")
+                .lastName("Poter")
+                .email("har"+i+"@har.har")
+                .phone("123456976"+i)
+                .address("USA")
+                .description("get")
+                .build();
+        openContactForm();
+        fillContactForm(contact);
+        saveContactForm();
+        pause(5);
     }
 }
