@@ -96,11 +96,11 @@ public class ListenerWD extends AbstractWebDriverEventListener {
     @Override
     public void onException(Throwable throwable, WebDriver driver) {
         super.onException(throwable, driver);
-        logger.info("Huston we have a problem");
+        logger.info("Huston, we have a problem");
         logger.info(throwable.getMessage());
         logger.info(throwable.fillInStackTrace().toString());
         int i = (int)(System.currentTimeMillis()/1000)%3600;
-        String link = "src/test/screenshots/screen-"+1+".png";
+        String link = "src/test/screenshots/screen-"+i+".png";
         HelperBase helperBase = new HelperBase(driver);
         helperBase.getScreen(link);
         logger.info("This is link to screenshot with error ---> "+link);
