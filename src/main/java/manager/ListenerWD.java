@@ -33,8 +33,59 @@ public class ListenerWD extends AbstractWebDriverEventListener {
     }
 
     @Override
+    public void afterGetText(WebElement element, WebDriver driver, String text) {
+        super.afterGetText(element, driver, text);
+        logger.info("got the text successfull");
+    }
+
+    @Override
+    public void beforeAlertAccept(WebDriver driver) {
+        super.beforeAlertAccept(driver);
+    }
+
+    @Override
+    public void afterAlertAccept(WebDriver driver) {
+        super.afterAlertAccept(driver);
+    }
+
+    @Override
+    public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+        super.beforeChangeValueOf(element, driver, keysToSend);
+    }
+
+    @Override
+    public void afterChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+        super.afterChangeValueOf(element, driver, keysToSend);
+    }
+
+    @Override
+    public void beforeClickOn(WebElement element, WebDriver driver) {
+        super.beforeClickOn(element, driver);
+        logger.info("start method click");
+    }
+
+    @Override
+    public void afterClickOn(WebElement element, WebDriver driver) {
+        super.afterClickOn(element, driver);
+        logger.info("done method click");
+    }
+
+    @Override
+    public void beforeScript(String script, WebDriver driver) {
+        super.beforeScript(script, driver);
+        logger.info("start execute js script: "+script);
+    }
+
+    @Override
+    public void afterScript(String script, WebDriver driver) {
+        super.afterScript(script, driver);
+        logger.info("script executed success");
+    }
+
+    @Override
     public void beforeNavigateTo(String url, WebDriver driver) {
         super.beforeNavigateTo(url, driver);
+        logger.info("navigate to: "+url);
     }
 
     @Override
@@ -52,14 +103,10 @@ public class ListenerWD extends AbstractWebDriverEventListener {
         String link = "src/test/screenshots/screen-"+1+".png";
         HelperBase helperBase = new HelperBase(driver);
         helperBase.getScreen(link);
-        logger.info("This is link to screenshot with error --->"+link);
+        logger.info("This is link to screenshot with error ---> "+link);
 
     }
 
-    @Override
-    public void afterGetText(WebElement element, WebDriver driver, String text) {
-        super.afterGetText(element, driver, text);
-        logger.info("got the text successfull");
-    }
+
 
 }

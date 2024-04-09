@@ -3,6 +3,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+*.png
+*.txt
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -15,8 +17,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-*.png
-*.txt
+
 
 ### Eclipse ###
 .apt_generated

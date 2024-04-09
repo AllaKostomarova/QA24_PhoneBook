@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 public class HelperContact extends HelperBase{
-    Logger logger = LoggerFactory.getLogger(HelperContact.class);
     public HelperContact(WebDriver wd) {
         super(wd);
     }
@@ -29,6 +28,11 @@ public class HelperContact extends HelperBase{
     By phoneItemCard = By.cssSelector(".contact-item_card__2SOIM>h3");
 
     By titleAddActive = By.cssSelector("a.active[href='/add']");
+
+    //------------------------------------
+    By contactCard = By.cssSelector("div.contact-item_card__2SOIM");
+    By btnRemove = By.xpath("//button[text()='Remove']");
+    By messageNoContacts = By.cssSelector(".contact-page_message__2qafk>h1");
 
 
     public void openContactForm() {
@@ -81,21 +85,21 @@ public class HelperContact extends HelperBase{
 
     public int removeOneContact() {
         int before = countOfContacts();
-        logger.info("Number of Contacts before remove is --->"+before);
+        logger.info("Number of Contacts before remove is ---> "+before);
         removeContact();
         int after = countOfContacts();
-        logger.info("Number of Contacts after remove is --->"+after);
+        logger.info("Number of Contacts after remove is ---> "+after);
         return before-after;
     }
 
     private int countOfContacts() {
-        return wd.findElements(By.cssSelector("div[class='contact-item_card__2SOIM']")).size();
+        return wd.findElements(contactCard).size();
     }
 
     private void removeContact(){
-        click(By.cssSelector(".contact-item_card__2SOIM"));
-        click(By.xpath("//button[text()='Remove']"));
-        pause(5);
+        click(contactCard);
+        click(btnRemove);
+        pause(1);
     }
 
     public void removeAllContacts(){
@@ -103,8 +107,8 @@ public class HelperContact extends HelperBase{
             removeContact();
     }
 
-    public String getMessage() {
-        return wd.findElement(By.cssSelector(".contact-page_message__2qafk>h1")).getText();
+    public String getMessage_NoContacts() {
+        return wd.findElement(messageNoContacts).getText();
     }
 
     public void provideContacts() {

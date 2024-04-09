@@ -26,7 +26,7 @@ public class RemoveContactTest extends TestBase{
     public void removeAllContacts(){
         //"No contacts here"
         app.getHelperContact().removeAllContacts();
-        Assert.assertEquals(app.getHelperContact().getMessage(), "No Contacts here!");
+        Assert.assertEquals(app.getHelperContact().getMessage_NoContacts(), "No Contacts here!");
 
     }
 }
