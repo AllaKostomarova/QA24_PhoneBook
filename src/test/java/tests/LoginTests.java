@@ -52,6 +52,18 @@ public class LoginTests extends TestBase{
         Assert.assertTrue(app.getHelperUser().isLogged());
         logger.info("End");
     }
+
+    @Test(dataProvider = "loginFile", dataProviderClass = DataProviderUser.class)
+    public void loginSuccessModelDP(User user){
+        logger.info("Start");
+        logger.info("Start test with name 'loginSuccess'");
+        logger.info("Test data--> "+user.toString());
+        app.getHelperUser().openLoginRegistrationForm();
+        app.getHelperUser().fillLoginRegistrationForm(user);
+        app.getHelperUser().submitLogin();
+        Assert.assertTrue(app.getHelperUser().isLogged());
+        logger.info("End");
+    }
     @Test
     public void loginWrongEmail(){
         app.getHelperUser().openLoginRegistrationForm();

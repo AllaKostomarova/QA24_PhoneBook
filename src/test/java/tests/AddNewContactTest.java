@@ -35,6 +35,17 @@ public class AddNewContactTest extends TestBase{
         Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
     }
 
+    @Test(dataProvider = "contactCSV", dataProviderClass = DataProviderContact.class)
+    public void addNewContactSuccessAllFieldsDPFile(Contact contact){
+        int randomNum = (int)(System.currentTimeMillis()/1000)%3600;
+        logger.info("Test runs with data --> "+contact.toString());
+        app.getHelperContact().openContactForm();
+        app.getHelperContact().fillContactForm(contact);
+        app.getHelperContact().saveContactForm();
+        //Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
+        Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
+    }
+
     @Test
     public void addNewContactSuccess(){
         int randomNum = (int)(System.currentTimeMillis()/1000)%3600;
