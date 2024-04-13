@@ -132,6 +132,6 @@ public class HelperContact extends HelperBase{
         openContactForm();
         fillContactForm(contact);
         saveContactForm();
-        pause(5);
+        //pause(5);
     }
 }

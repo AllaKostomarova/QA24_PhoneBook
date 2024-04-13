@@ -11,6 +11,7 @@ public class DataProviderContact {
     @DataProvider
     public Iterator<Object[]> example(){
         List<Object[]> list = new ArrayList<>();
+
         return list.iterator();
     }
 
@@ -24,7 +25,54 @@ public class DataProviderContact {
                 .email("xxx@xxx.xxx")
                 .address("City")
                 .description("all fields")
-                .build()});
+                .build()
+        });
+        list.add(new Object[]{Contact.builder()
+                .name("suc2")
+                .lastName("xxx2")
+                .phone("1234567897777")
+                .email("xxx2@xxx.xxx")
+                .address("City2")
+                .build()
+        });
+        return list.iterator();
+    }
+
+    @DataProvider
+    public Iterator<Object[]> contactWrongPhone(){
+        List<Object[]> list = new ArrayList<>();
+        list.add(new Object[]{Contact.builder()
+                .name("xxx-wrong Phone")
+                .lastName("xxx-neg")
+                .phone("12345")
+                .email("xxx@xxx.xxx")
+                .address("City")
+                .build()
+        });
+        list.add(new Object[]{Contact.builder()
+                .name("xxx-long Phone")
+                .lastName("xxx-neg")
+                .phone("1234500000000000000000000")
+                .email("xxx@xxx.xxx")
+                .address("City")
+                .build()
+        });
+        list.add(new Object[]{Contact.builder()
+                .name("xxx-empty Phone")
+                .lastName("xxx-neg")
+                .phone("")
+                .email("xxx@xxx.xxx")
+                .address("City")
+                .build()
+        });
+        list.add(new Object[]{Contact.builder()
+                .name("xxx-wrong Phone")
+                .lastName("xxx-neg")
+                .phone("qqqqqqqqqqq")
+                .email("xxx@xxx.xxx")
+                .address("City")
+                .build()
+        });
         return list.iterator();
     }
 }
