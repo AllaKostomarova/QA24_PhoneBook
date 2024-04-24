@@ -11,14 +11,14 @@ import org.testng.asserts.SoftAssert;
 
 public class AddNewContactTest extends TestBase{
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void preCondition(){
         User newUser = new User().withEmail("ww@ww.ru").withPassword("Test123$");
         if(!app.getHelperUser().isLogged())
             app.getHelperUser().login(newUser);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void goToContactPage(){
         app.getHelperContact().pause(5);
         app.getHelperContact().openContactPage();
@@ -42,11 +42,12 @@ public class AddNewContactTest extends TestBase{
         app.getHelperContact().openContactForm();
         app.getHelperContact().fillContactForm(contact);
         app.getHelperContact().saveContactForm();
-        //Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
+        app.getHelperContact().pause(2);
+        Assert.assertTrue(app.getHelperContact().isContactAddedByName(contact.getName()));
         Assert.assertTrue(app.getHelperContact().isContactAddedByPhone(contact.getPhone()));
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "retest"})
     public void addNewContactSuccess(){
         int randomNum = (int)(System.currentTimeMillis()/1000)%3600;
         Contact newContact = Contact.builder()
@@ -174,7 +175,7 @@ public class AddNewContactTest extends TestBase{
         Contact newContact = Contact.builder()
                 .name("xxx-wrongEmail")
                 .lastName("xxx-neg")
-                .phone("123456789012")
+                .phone("000000000000")
                 .email("xxx.xxx")
                 .address("City")
                 .build();
@@ -182,18 +183,14 @@ public class AddNewContactTest extends TestBase{
         logger.info("Test runs with data --> "+newContact.toString());
         app.getHelperContact().openContactForm();
         app.getHelperContact().fillContactForm(newContact);
-        app.getHelperContact().pause(15);
         app.getHelperContact().saveContactForm();
-        app.getHelperContact().getScreen("src/test/screenshots/screen"+i+".png");
-        app.getHelperContact().pause(15);
-        app.getHelperContact().getScreen("src/test/screenshots/screen"+i+".png");
+        Assert.assertTrue(app.getHelperContact().isAlertPresent("Email not valid:"));
         Assert.assertTrue(app.getHelperContact().isContactFormPresent());
         Assert.assertTrue(app.getHelperContact().isAddPageStillDisplayed());
-       // app.getHelperContact().getScreen("src/test/screenshots/screen"+i+".png");
-        Assert.assertTrue(app.getHelperContact().isAlertPresent("Email not valid:"));
+
         app.getHelperContact().openContactPage();
         Assert.assertFalse(app.getHelperContact().isContactAddedByPhone(newContact.getPhone()));
-//        softAssert.assertAll("stop test");
+
     }
     @Test(description = "Alert is not present", enabled = true)
     public void addNewContactNegativeTest_emptyAddressField(){

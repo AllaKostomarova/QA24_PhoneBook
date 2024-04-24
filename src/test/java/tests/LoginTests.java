@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class LoginTests extends TestBase{
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void preCondition(){
         // if SignOut ---> logout
         if(app.getHelperUser().isLogged()){
@@ -23,7 +23,7 @@ public class LoginTests extends TestBase{
         }
     }
 
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUser.class)
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUser.class, groups = {"smoke"})
     public void loginSuccess(String email, String password){
         logger.info("Start test with name 'loginSuccess'");
         logger.info("Test data-->email: "+email+"& password: "+password);
