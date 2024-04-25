@@ -115,17 +115,19 @@ public class HelperContact extends HelperBase{
         if(countOfContacts()<3){
             for (int i = 0; i < 3; i++) {
                 addOneContact();
+                pause(2);
             }
         }
     }
 
     private void addOneContact() {
-        int i = new Random().nextInt(1000)+1000;
+       // int i = new Random().nextInt(1000)+1000;
+        int i = (int)(System.currentTimeMillis()/1000)%3600;
         Contact contact = Contact.builder()
                 .name("Harry")
                 .lastName("Poter")
                 .email("har"+i+"@har.har")
-                .phone("123456976"+i)
+                .phone("12345976"+i)
                 .address("USA")
                 .description("get")
                 .build();
