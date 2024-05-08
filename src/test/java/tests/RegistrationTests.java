@@ -26,6 +26,7 @@ public class RegistrationTests extends TestBase {
         int randomNum = (int)(System.currentTimeMillis()/1000)%3600;
         User newUser = new User().withEmail(randomNum+"w@w.w").withPassword("Test123$");
         System.out.println(newUser);
+        logger.info("New user has successfully registered using email &password ---> "+newUser);
 
         app.getHelperUser().openLoginRegistrationForm();
         app.getHelperUser().fillLoginRegistrationForm(newUser);
